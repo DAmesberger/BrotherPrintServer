@@ -1,6 +1,7 @@
 # Installation
 
 - Install Brother Printer Driver
+- Install Brother B-PAC
 - Copy template files (.lbx) to template folder in executable directory
 - Run this application
 
@@ -71,6 +72,26 @@ Example Response:
 
 Prints a label. Expects JSON Body with fields
 - count: number of labels to print
+- options: A string array of options. Possible values are:
+  - bpoAutoCut
+  - bpoCutPause
+  - bpoCutMark
+  - bpoMirroring
+  - bpoColor
+  - bpoStamp
+  - bpoHalfCut
+  - bpoChainPrint
+  - bpoTailCut
+  - bpoQuality
+  - bpoSpecialTape
+  - bpoHighSpeed
+  - bpoHighResolution
+  - bpoCutAtEnd
+  - bpoMono
+  - bpoNoCut
+  - bpoIdLabel
+  - bpoRfid
+  - bpoContinue
 - printer: Printer name to print on
 - template: Template name (.lbx filename without extension)
 - fields: field values defined in the template
@@ -82,12 +103,13 @@ POST:
 localhost:60024/api/print
 ```
 
-Example Response:
+Example Body:
 ```json
 {
 	"count": 1,
 	"printer":"Brother PT-E550W",
 	"template":"ic-label",
+  "options": ["bpoCutAtEnd", "bpoCutPause"],
 	"fields": 
 	{
 		 "name":"AKSCT/Z BLACK ",

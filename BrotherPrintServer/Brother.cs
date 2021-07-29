@@ -16,7 +16,8 @@ namespace BrotherPrintServer
 		public string printer { get; set; }
 		public string template { get; set; }
         public int count { get; set; }
-        public Dictionary<string, string> fields { get; set; }
+		public PrintOptionConstants[] options { get; set; }
+		public Dictionary<string, string> fields { get; set; }
     }
 
 	public class PreviewData
@@ -427,15 +428,24 @@ namespace BrotherPrintServer
 								obj.Text = "";
 						}
 
-						//foreach (var nv in printData.fields)
-						//{
-						//	var obj = documentSetup.Document.GetObject(nv.Key);
-						//	if (obj != null) 
-						//	  obj.Text = nv.Value;
-						//}
+					//foreach (var nv in printData.fields)
+					//{
+					//	var obj = documentSetup.Document.GetObject(nv.Key);
+					//	if (obj != null) 
+					//	  obj.Text = nv.Value;
+					//}
 
-						// doc.SetMediaById(doc.Printer.GetMediaId(), true);
-						PrintOptionConstants options = PrintOptionConstants.bpoHalfCut | PrintOptionConstants.bpoHighResolution;
+					// doc.SetMediaById(doc.Printer.GetMediaId(), true);
+					PrintOptionConstants options = PrintOptionConstants.bpoDefault;
+					if (printData.options != null)
+                    {
+						foreach (var opt in printData.options)
+							options |= opt;
+                    } else
+                    {
+						options = PrintOptionConstants.bpoHalfCut | PrintOptionConstants.bpoHighResolution;
+					}
+					
 						doc.StartPrint("", options);
 						doc.PrintOut(printData.count, options);
 						doc.EndPrint();
