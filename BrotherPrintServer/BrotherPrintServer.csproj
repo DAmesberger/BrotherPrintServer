@@ -109,6 +109,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /E /I $(ProjectDir)templates $(TargetDir)templates</PreBuildEvent>
+    <PreBuildEvent>xcopy /E /I /Y $(ProjectDir)templates $(TargetDir)templates</PreBuildEvent>
   </PropertyGroup>
 </Project>
