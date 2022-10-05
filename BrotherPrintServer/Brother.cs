@@ -405,19 +405,20 @@ namespace BrotherPrintServer
 			try {
 			string templatePath = String.Format("{0}{1}.lbx", TEMPLATE_DIRECTORY, printData.template);
 
-			ErrorCode errorCode;
-
+			//ErrorCode errorCode;
+ 
 				//using (ComDisposer cd = new ComDisposer())
 				//{
 
 					doc = new Document();
 					//doc = cd.Add(new Document());
 
-					doc.SetPrinter(printData.printer, false);
 					if (doc.Open(templatePath))
 					{
 						printerOpened = true;
-
+				  	bool setPrinterSuccessful = doc.SetPrinter(printData.printer, false);
+					  string printerName = doc.GetPrinterName();
+					  
 						foreach (IObject obj in doc.Objects)
 						{
 							var name = obj.Name.ToLower();
